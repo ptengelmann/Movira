@@ -25,10 +25,17 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <button onClick={logout} className={styles.logoutBtn}>
-                Logout
-              </button>
-            </li>
+  <Link
+    to="/"
+    onClick={(e) => {
+      e.preventDefault()
+      logout()
+    }}
+    className={styles.navLink}
+  >
+    Logout
+  </Link>
+</li>
           </>
         ) : (
           <>

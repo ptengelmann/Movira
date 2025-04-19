@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const sparkRoutes = require('./routes/sparkRoutes')
+
 require('dotenv').config();
 
 const app = express();
@@ -12,6 +14,8 @@ app.use(express.json());
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
+app.use('/api/sparks', sparkRoutes)
+
 
 // Routes placeholder
 app.get('/', (req, res) => {

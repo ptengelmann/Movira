@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import styles from './SparkForm.module.css'
 
@@ -14,12 +15,26 @@ const SparkForm = () => {
     setSpark({ ...spark, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Submitting spark:', spark)
-    // TODO: Send to backend
+    try {
+      const res = await axios.post('http://localhost:5000/api/sparks', spark)
+      if (res.data.success) {
+        alert('Spark launched successfully!')
+        // Optional: reset form
+        setSpark({
+          title: '',
+          description: '',
+          tag: '',
+          urgency: '1hr',
+          reward: '',
+        })
+      }
+    } catch (err) {
+      alert('Error launching Spark. Try again.')
+      console.error(err)
+    }
   }
-
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2 className={styles.heading}>Drop a Spark</h2>

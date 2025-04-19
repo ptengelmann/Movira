@@ -4,6 +4,8 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const sparkRoutes = require('./routes/sparkRoutes')
+const authRoutes = require('./routes/authRoutes')
+
 
 require('dotenv').config();
 
@@ -15,6 +17,7 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 app.use('/api/sparks', sparkRoutes)
+app.use('/api/auth', authRoutes)
 
 
 // Routes placeholder

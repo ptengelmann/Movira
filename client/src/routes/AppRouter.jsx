@@ -4,6 +4,7 @@ import HomePage from '../pages/HomePage'
 import ExplorePage from '../pages/ExplorePage'
 import DropSparkPage from '../pages/DropSparkPage'
 import SignupPage from '../pages/SignupPage'
+import LoginPage from '../pages/LoginPage'
 
 
 
@@ -17,6 +18,7 @@ const AppRouter = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/spark" element={<DropSparkPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/login" element={<LoginPage />} />
           {/* Add more routes as needed */}
         </Routes>
       </Layout>

@@ -21,6 +21,9 @@ const Navbar = () => {
         <li>
           <Link to="/spark" className={styles.sparkBtn}>Drop a Spark</Link>
         </li>
+        <li>
+        <Link to="/signup">Sign Up</Link>
+        </li>
       </ul>
     </nav>
   )

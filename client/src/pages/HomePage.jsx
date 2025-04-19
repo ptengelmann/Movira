@@ -1,10 +1,11 @@
 import React from 'react'
+import Hero from '../components/hero/Hero'
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>Movira — Real-time Trust Ecosystem</h1>
-    </div>
+    <>
+      <Hero />
+    </>
   )
 }
 

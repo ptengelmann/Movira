@@ -46,15 +46,18 @@
     font-weight: bold;
   }
   .logoutBtn {
-    background: transparent;
+    background: none;
     border: none;
     color: white;
-    font-weight: 500;
+    font: inherit;
+    padding: 0;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
+    text-decoration: none;
   }
   
   .logoutBtn:hover {
-    color: var(--pulse-coral);
+    color: var(--pulse-coral); /* Or a brand hover color */
   }
+  
   

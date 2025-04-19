@@ -1,10 +1,9 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import styles from './Navbar.module.css'
 import useUserStore from '../../store/useUserStore'
 
 const Navbar = () => {
-  const location = useLocation()
   const { user, logout } = useUserStore()
 
   return (

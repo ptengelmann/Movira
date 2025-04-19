@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useUserStore from '../store/useUserStore'
+import AuthFormLayout from '../components/auth/AuthFormLayout'
 
 const LoginPage = () => {
   const navigate = useNavigate()
@@ -35,8 +36,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div style={{ maxWidth: '500px', margin: '0 auto', padding: '40px 20px' }}>
-      <h2>Login</h2>
+    <AuthFormLayout title="Login to Movira">
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <input
           type="email"
@@ -54,9 +54,11 @@ const LoginPage = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Log In</button>
+        <button type="submit" style={{ padding: '12px', fontWeight: 'bold', background: 'var(--pulse-coral)', color: 'white', borderRadius: '8px', border: 'none' }}>
+          Log In
+        </button>
       </form>
-    </div>
+    </AuthFormLayout>
   )
 }
 

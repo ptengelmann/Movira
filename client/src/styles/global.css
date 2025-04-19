@@ -1,0 +1,17 @@
+:root {
+    --motion-blue: #1A2B4C;
+    --pulse-coral: #FF5F63;
+    --signal-white: #FFFFFF;
+    --glow-gray: #F4F5F7;
+    --trust-gold: #F7B500;
+  
+    --font-primary: 'Inter', sans-serif;
+  }
+  
+  body {
+    margin: 0;
+    font-family: var(--font-primary);
+    background-color: var(--signal-white);
+    color: var(--motion-blue);
+  }
+  

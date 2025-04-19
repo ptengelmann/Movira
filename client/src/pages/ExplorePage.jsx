@@ -1,39 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import SparkCard from '../components/spark/SparkCard'
 
-const mockSparks = [
-  {
-    id: 1,
-    title: 'Need quick UI feedback',
-    description: 'Just redesigned the signup page, would love your thoughts.',
-    tag: 'Design',
-    time: '12 min ago',
-    reward: 10,
-  },
-  {
-    id: 2,
-    title: 'Help me name my new AI app',
-    description: 'I’ve got 3 ideas — need fresh eyes to choose the best.',
-    tag: 'Branding',
-    time: '24 min ago',
-  },
-  {
-    id: 3,
-    title: 'Looking for feedback on elevator pitch',
-    description: '60-sec pitch for new product — honest feedback welcome.',
-    tag: 'Startups',
-    time: '1 hour ago',
-    reward: 20,
-  },
-]
-
 const ExplorePage = () => {
+  const [sparks, setSparks] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchSparks = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/sparks')
+        if (res.data.success) {
+          setSparks(res.data.data)
+        }
+      } catch (err) {
+        console.error('Error fetching sparks:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchSparks()
+  }, [])
+
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 20px' }}>
       <h2>Explore Live Sparks</h2>
-      {mockSparks.map((spark) => (
-        <SparkCard key={spark.id} spark={spark} />
-      ))}
+      {loading ? (
+        <p>Loading sparks...</p>
+      ) : sparks.length > 0 ? (
+        sparks.map((spark) => (
+          <SparkCard key={spark._id} spark={spark} />
+        ))
+      ) : (
+        <p>No Sparks yet. Be the first to drop one!</p>
+      )}
     </div>
   )
 }

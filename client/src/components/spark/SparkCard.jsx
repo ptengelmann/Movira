@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './SparkCard.module.css'
+import { BadgeDollarSign } from 'lucide-react'
 
 const SparkCard = ({ spark }) => {
   return (
@@ -12,7 +13,10 @@ const SparkCard = ({ spark }) => {
       <div className={styles.meta}>
         <span className={styles.time}>{spark.time}</span>
         {spark.reward && (
-          <span className={styles.reward}>💰 {spark.reward} Sparks</span>
+      <span className={styles.reward}>
+      <BadgeDollarSign size={16} />
+      {spark.reward} Sparks
+    </span>
         )}
       </div>
     </div>

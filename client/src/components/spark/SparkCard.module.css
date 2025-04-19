@@ -35,7 +35,10 @@
   }
   
   .reward {
+    display: inline-flex;
+    align-items: center;
     font-weight: bold;
     color: var(--motion-blue);
+    gap: 6px;
   }
   

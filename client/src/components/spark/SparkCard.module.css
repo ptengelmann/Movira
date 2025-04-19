@@ -1,0 +1,41 @@
+.card {
+    background-color: var(--glow-gray);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .tag {
+    background-color: var(--pulse-coral);
+    color: white;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  
+  .description {
+    margin-top: 12px;
+    color: #444;
+    font-size: 15px;
+  }
+  
+  .meta {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .reward {
+    font-weight: bold;
+    color: var(--motion-blue);
+  }
+  

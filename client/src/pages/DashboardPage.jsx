@@ -6,6 +6,8 @@ import StatsWidget from '../components/dashboard/StatsWidget'
 import { Sparkles, TrendingUp } from 'lucide-react'
 import SparkCard from '../components/spark/SparkCard'
 import ProgressWidget from '../components/dashboard/ProgressWidget'
+import ReplyNotificationWidget from '../components/dashboard/ReplyNotificationWidget' // ✅ add this
+
 
 
 const DashboardPage = () => {
@@ -60,6 +62,7 @@ const DashboardPage = () => {
           <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
           <StatsWidget label="Trust Level" value={getTrustLevel()} icon={<TrendingUp />} />
         </div>
+        <ReplyNotificationWidget /> 
 
         <div style={{ marginTop: '20px' }}>
   <ProgressWidget currentXP={user?.xp || 0} />

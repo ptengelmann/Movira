@@ -25,17 +25,20 @@ const Navbar = () => {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-  <Link
-    to="/"
-    onClick={(e) => {
-      e.preventDefault()
-      logout()
-    }}
-    className={styles.navLink}
-  >
-    Logout
-  </Link>
-</li>
+              <Link to="/my-replies">My Replies</Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                onClick={(e) => {
+                  e.preventDefault()
+                  logout()
+                }}
+                className={styles.navLink}
+              >
+                Logout
+              </Link>
+            </li>
           </>
         ) : (
           <>

@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const sparkRoutes = require('./routes/sparkRoutes')
-const authRoutes = require('./routes/authRoutes')
-
+const sparkRoutes = require('./routes/sparkRoutes');
+const authRoutes = require('./routes/authRoutes'); // ✅ Make sure this path is correct
 
 require('dotenv').config();
 
@@ -13,20 +12,23 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
-app.use('/api/sparks', sparkRoutes)
-app.use('/api/auth', authRoutes)
 
+// ✅ Register API routes
+app.use('/api/sparks', sparkRoutes);
+app.use('/api/auth', authRoutes); // ✅ This line was missing/commented out
 
-// Routes placeholder
+// Default route
 app.get('/', (req, res) => {
   res.send('Movira API is running...');
 });
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
+// Connect to MongoDB and start the server
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log('✅ Connected to MongoDB');
     app.listen(process.env.PORT, () => {

@@ -121,6 +121,35 @@ router.post('/:id/reply', async (req, res) => {
       res.status(500).json({ success: false, message: 'Server error' })
     }
   })
+
+  router.delete('/:id/reply/:replyIndex', async (req, res) => {
+    try {
+      const { userId } = req.body
+      const { id, replyIndex } = req.params
+      const index = parseInt(replyIndex)
   
+      const spark = await Spark.findById(id)
+      if (!spark) {
+        return res.status(404).json({ success: false, message: 'Spark not found' })
+      }
+  
+      const reply = spark.replies[index]
+      if (!reply) {
+        return res.status(404).json({ success: false, message: `Reply at index ${index} not found` })
+      }
+  
+      if (reply.userId?.toString() !== userId) {
+        return res.status(403).json({ success: false, message: 'Unauthorized to delete this reply' })
+      }
+  
+      spark.replies.splice(index, 1)
+      await spark.save({ validateBeforeSave: false })
+  
+      res.status(200).json({ success: true, replies: spark.replies })
+    } catch (err) {
+      console.error('Error deleting reply:', err)
+      res.status(500).json({ success: false, message: 'Server error' })
+    }
+  })
 
 module.exports = router

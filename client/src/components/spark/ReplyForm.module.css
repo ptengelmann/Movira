@@ -1,12 +1,13 @@
 .replyForm {
     display: flex;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 12px;
+    align-items: center;
   }
   
   .replyForm input {
     flex: 1;
-    padding: 8px 12px;
+    padding: 10px 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 14px;
@@ -16,11 +17,12 @@
     background: var(--pulse-coral);
     color: white;
     border: none;
-    padding: 8px 16px;
+    padding: 10px 16px;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s ease;
+    margin-top: 0; /* ✅ fixes vertical offset */
   }
   
   .replyForm button:hover {

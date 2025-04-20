@@ -37,6 +37,17 @@ const DashboardPage = () => {
     }
   }
 
+  // ✅ Trust level logic
+  const getTrustLevel = () => {
+    const xp = user?.xp || 0
+    const sparks = userSparks.length
+
+    if (xp >= 100 && sparks >= 25) return 'Verified'
+    if (xp >= 50 && sparks >= 10) return 'Trusted'
+    if (xp >= 20 && sparks >= 2) return 'Rising'
+    return 'New'
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.card}>
@@ -45,7 +56,7 @@ const DashboardPage = () => {
 
         <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginTop: '30px' }}>
           <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
-          <StatsWidget label="Trust Level" value="Rising" icon={<TrendingUp />} />
+          <StatsWidget label="Trust Level" value={getTrustLevel()} icon={<TrendingUp />} />
         </div>
 
         <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>

@@ -26,6 +26,11 @@ const UserSchema = new mongoose.Schema(
       enum: ['user', 'admin'],
       default: 'user',
     },
+    trustLevel: {
+        type: String,
+        enum: ['New', 'Rising', 'Trusted', 'Verified'],
+        default: 'New',
+      },
   },
   { timestamps: true }
 )

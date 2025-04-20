@@ -31,6 +31,18 @@ const SparkSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    replies: [
+        {
+          userId: String,
+          message: String,
+          createdAt: {
+            type: Date,
+            default: Date.now,
+          },
+          username: String,
+        },
+      ],
+      
   },
   { timestamps: true }
 )

@@ -80,4 +80,47 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+// POST reply to a Spark
+router.post('/:id/reply', async (req, res) => {
+    try {
+      const { userId, message, username } = req.body
+  
+      if (!userId || !message) {
+        return res.status(400).json({ success: false, message: 'Missing fields' })
+      }
+  
+      const updatedSpark = await Spark.findByIdAndUpdate(
+        req.params.id,
+        {
+          $push: {
+            replies: {
+              userId,
+              message,
+              username,
+              createdAt: new Date(),
+            },
+          },
+        },
+        { new: true }
+      )
+  
+      // ✅ Award XP to the replier
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $inc: { xp: 3 } },
+        { new: true }
+      )
+  
+      res.status(200).json({
+        success: true,
+        data: updatedSpark,
+        user: updatedUser,
+      })
+    } catch (err) {
+      console.error('Reply failed:', err)
+      res.status(500).json({ success: false, message: 'Server error' })
+    }
+  })
+  
+
 module.exports = router

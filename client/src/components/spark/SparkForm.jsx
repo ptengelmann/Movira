@@ -1,15 +1,10 @@
-import axios from 'axios'
 import React, { useState } from 'react'
+import axios from 'axios'
 import styles from './SparkForm.module.css'
 import useUserStore from '../../store/useUserStore'
 
-const { user } = useUserStore()
-const res = await axios.post('http://localhost:5000/api/sparks', {
-    ...spark,
-    userId: user._id,
-  })
-  
 const SparkForm = () => {
+  const { user } = useUserStore()
   const [spark, setSpark] = useState({
     title: '',
     description: '',
@@ -25,10 +20,12 @@ const SparkForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const res = await axios.post('http://localhost:5000/api/sparks', spark)
+      const res = await axios.post('http://localhost:5000/api/sparks', {
+        ...spark,
+        userId: user._id,
+      })
       if (res.data.success) {
         alert('Spark launched successfully!')
-        // Optional: reset form
         setSpark({
           title: '',
           description: '',
@@ -42,6 +39,7 @@ const SparkForm = () => {
       console.error(err)
     }
   }
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h2 className={styles.heading}>Drop a Spark</h2>

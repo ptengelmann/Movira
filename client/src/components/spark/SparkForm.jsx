@@ -1,7 +1,14 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import styles from './SparkForm.module.css'
+import useUserStore from '../../store/useUserStore'
 
+const { user } = useUserStore()
+const res = await axios.post('http://localhost:5000/api/sparks', {
+    ...spark,
+    userId: user._id,
+  })
+  
 const SparkForm = () => {
   const [spark, setSpark] = useState({
     title: '',

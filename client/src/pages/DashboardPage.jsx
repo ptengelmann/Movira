@@ -3,7 +3,7 @@ import axios from 'axios'
 import useUserStore from '../store/useUserStore'
 import styles from './DashboardPage.module.css'
 import StatsWidget from '../components/dashboard/StatsWidget'
-import { Sparkles, ShieldCheck } from 'lucide-react'
+import { Sparkles, ShieldCheck, TrendingUp } from 'lucide-react'
 
 const DashboardPage = () => {
   const { user } = useUserStore()
@@ -31,8 +31,8 @@ const DashboardPage = () => {
         <p>You currently have <strong>{user?.xp || 0}</strong> XP.</p>
         <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginTop: '30px' }}>
   <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
-  <StatsWidget label="Trust Level" value="Rising 🔄" icon={<ShieldCheck />} />
-</div>
+  <StatsWidget label="Trust Level" value="Rising" icon={<TrendingUp />} />
+  </div>
         <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
         {userSparks.length > 0 ? (
           <ul>

@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './SparkCard.module.css'
-import { BadgeDollarSign, AlarmClock } from 'lucide-react'
+import { BadgeDollarSign, AlarmClock, Trash2 } from 'lucide-react'
 
-const SparkCard = ({ spark }) => {
+const SparkCard = ({ spark, onDelete }) => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -24,6 +24,13 @@ const SparkCard = ({ spark }) => {
           </span>
         )}
       </div>
+
+      {/* Delete button */}
+      {onDelete && (
+        <button className={styles.deleteBtn} onClick={() => onDelete(spark._id)}>
+          <Trash2 size={16} /> Delete
+        </button>
+      )}
     </div>
   )
 }

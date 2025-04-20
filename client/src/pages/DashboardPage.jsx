@@ -3,14 +3,14 @@ import axios from 'axios'
 import useUserStore from '../store/useUserStore'
 import styles from './DashboardPage.module.css'
 import StatsWidget from '../components/dashboard/StatsWidget'
-import { Sparkles, ShieldCheck, TrendingUp } from 'lucide-react'
+import { Sparkles, TrendingUp } from 'lucide-react'
 import SparkCard from '../components/spark/SparkCard'
-
 
 const DashboardPage = () => {
   const { user } = useUserStore()
   const [userSparks, setUserSparks] = useState([])
 
+  // Fetch user's sparks
   useEffect(() => {
     const fetchSparks = async () => {
       try {
@@ -26,25 +26,38 @@ const DashboardPage = () => {
     fetchSparks()
   }, [user._id])
 
+  // Handle deletion
+  const handleDelete = async (sparkId) => {
+    if (!window.confirm('Are you sure you want to delete this Spark?')) return
+    try {
+      await axios.delete(`http://localhost:5000/api/sparks/${sparkId}`)
+      setUserSparks((prev) => prev.filter((s) => s._id !== sparkId))
+    } catch (err) {
+      console.error('Delete failed:', err)
+    }
+  }
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.card}>
         <h1>Welcome back, {user?.name} 👋</h1>
         <p>You currently have <strong>{user?.xp || 0}</strong> XP.</p>
+
         <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginTop: '30px' }}>
-  <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
-  <StatsWidget label="Trust Level" value="Rising" icon={<TrendingUp />} />
-  </div>
+          <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
+          <StatsWidget label="Trust Level" value="Rising" icon={<TrendingUp />} />
+        </div>
+
         <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
         {userSparks.length > 0 ? (
-  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
-    {userSparks.map((spark) => (
-      <SparkCard key={spark._id} spark={spark} />
-    ))}
-  </div>
-) : (
-  <p>You haven’t dropped any Sparks yet.</p>
-)}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+            {userSparks.map((spark) => (
+              <SparkCard key={spark._id} spark={spark} onDelete={handleDelete} />
+            ))}
+          </div>
+        ) : (
+          <p>You haven’t dropped any Sparks yet.</p>
+        )}
       </div>
     </div>
   )

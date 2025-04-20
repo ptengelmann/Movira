@@ -25,30 +25,47 @@ router.get('/user/:id', async (req, res) => {
 
 // POST a new Spark
 router.post('/', async (req, res) => {
-  try {
-    const { title, description, tag, urgency, reward, userId } = req.body
-
-    if (!userId) {
-      return res.status(400).json({ success: false, message: 'Missing userId' })
+    try {
+      const { title, description, tag, urgency, reward, userId } = req.body
+  
+      if (!userId) {
+        return res.status(400).json({ success: false, message: 'Missing userId' })
+      }
+  
+      const newSpark = new Spark({
+        title,
+        description,
+        tag,
+        urgency,
+        reward,
+        userId,
+      })
+  
+      await newSpark.save()
+  
+      // ✅ Award XP to user
+      const xpGain = 5
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $inc: { xp: xpGain } },
+        { new: true }
+      )
+  
+      res.status(201).json({
+        success: true,
+        data: newSpark,
+        user: {
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+          xp: updatedUser.xp,
+        },
+      })
+    } catch (err) {
+      console.error('Error creating spark:', err)
+      res.status(500).json({ success: false, message: 'Server error' })
     }
-
-    const newSpark = new Spark({
-      title,
-      description,
-      tag,
-      urgency,
-      reward,
-      userId,
-    })
-
-    await newSpark.save()
-
-    res.status(201).json({ success: true, data: newSpark })
-  } catch (err) {
-    console.error('Error creating spark:', err)
-    res.status(500).json({ success: false, message: 'Server error' })
-  }
-})
+  })
 
 // ✅ DELETE a Spark by ID
 router.delete('/:id', async (req, res) => {

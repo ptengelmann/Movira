@@ -4,7 +4,7 @@ import styles from './SparkForm.module.css'
 import useUserStore from '../../store/useUserStore'
 
 const SparkForm = () => {
-  const { user } = useUserStore()
+  const { user, setUser } = useUserStore()
   const [spark, setSpark] = useState({
     title: '',
     description: '',
@@ -24,8 +24,15 @@ const SparkForm = () => {
         ...spark,
         userId: user._id,
       })
+
       if (res.data.success) {
         alert('Spark launched successfully!')
+
+        // ✅ Update Zustand XP if backend sent updated user
+        if (res.data.user) {
+          setUser({ user: res.data.user, token: localStorage.getItem('token') })
+        }
+
         setSpark({
           title: '',
           description: '',

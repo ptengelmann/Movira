@@ -4,6 +4,8 @@ import useUserStore from '../store/useUserStore'
 import styles from './DashboardPage.module.css'
 import StatsWidget from '../components/dashboard/StatsWidget'
 import { Sparkles, ShieldCheck, TrendingUp } from 'lucide-react'
+import SparkCard from '../components/spark/SparkCard'
+
 
 const DashboardPage = () => {
   const { user } = useUserStore()
@@ -35,16 +37,14 @@ const DashboardPage = () => {
   </div>
         <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
         {userSparks.length > 0 ? (
-          <ul>
-            {userSparks.map((spark) => (
-              <li key={spark._id}>
-                <strong>{spark.title}</strong> – {spark.reward} Sparks
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>You haven’t dropped any Sparks yet.</p>
-        )}
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+    {userSparks.map((spark) => (
+      <SparkCard key={spark._id} spark={spark} />
+    ))}
+  </div>
+) : (
+  <p>You haven’t dropped any Sparks yet.</p>
+)}
       </div>
     </div>
   )

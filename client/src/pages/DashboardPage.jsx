@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import useUserStore from '../store/useUserStore'
 import styles from './DashboardPage.module.css'
+import StatsWidget from '../components/dashboard/StatsWidget'
+import { Sparkles, ShieldCheck } from 'lucide-react'
 
 const DashboardPage = () => {
   const { user } = useUserStore()
@@ -27,7 +29,10 @@ const DashboardPage = () => {
       <div className={styles.card}>
         <h1>Welcome back, {user?.name} 👋</h1>
         <p>You currently have <strong>{user?.xp || 0}</strong> XP.</p>
-
+        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginTop: '30px' }}>
+  <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
+  <StatsWidget label="Trust Level" value="Rising 🔄" icon={<ShieldCheck />} />
+</div>
         <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
         {userSparks.length > 0 ? (
           <ul>

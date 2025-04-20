@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Spark = require('../models/Spark')
+const User = require('../models/User')
+
 
 // GET all Sparks
 router.get('/', async (req, res) => {

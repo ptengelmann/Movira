@@ -1,0 +1,33 @@
+.wrapper {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .wrapper h4 {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  
+  .wrapper h4 span {
+    color: var(--pulse-coral);
+  }
+  
+  .bar {
+    width: 100%;
+    height: 12px;
+    background: #eee;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .fill {
+    height: 100%;
+    background: var(--pulse-coral);
+    transition: width 0.3s ease;
+  }
+  

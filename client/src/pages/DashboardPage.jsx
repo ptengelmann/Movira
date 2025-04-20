@@ -5,6 +5,8 @@ import styles from './DashboardPage.module.css'
 import StatsWidget from '../components/dashboard/StatsWidget'
 import { Sparkles, TrendingUp } from 'lucide-react'
 import SparkCard from '../components/spark/SparkCard'
+import ProgressWidget from '../components/dashboard/ProgressWidget'
+
 
 const DashboardPage = () => {
   const { user } = useUserStore()
@@ -58,6 +60,10 @@ const DashboardPage = () => {
           <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
           <StatsWidget label="Trust Level" value={getTrustLevel()} icon={<TrendingUp />} />
         </div>
+
+        <div style={{ marginTop: '20px' }}>
+  <ProgressWidget currentXP={user?.xp || 0} />
+</div>
 
         <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
         {userSparks.length > 0 ? (

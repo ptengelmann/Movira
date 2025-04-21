@@ -1,5 +1,7 @@
 import React from 'react'
 import Navbar from '../navbar/Navbar'
+import Footer from './Footer'
+
 
 const Layout = ({ children }) => {
   return (
@@ -8,6 +10,7 @@ const Layout = ({ children }) => {
       <main style={{ padding: '20px' }}>
         {children}
       </main>
+      <Footer />
     </>
   )
 }

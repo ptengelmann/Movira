@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import styles from './SparkForm.module.css'
 import useUserStore from '../../store/useUserStore'
+import { useNavigate } from 'react-router-dom'
 
 const SparkForm = () => {
   const { user, setUser } = useUserStore()
+  const navigate = useNavigate()
+
   const [spark, setSpark] = useState({
     title: '',
     description: '',
@@ -28,10 +31,12 @@ const SparkForm = () => {
       if (res.data.success) {
         alert('Spark launched successfully!')
 
-        // ✅ Update Zustand XP if backend sent updated user
-        if (res.data.user) {
-          setUser({ user: res.data.user, token: localStorage.getItem('token') })
+        // ✅ Preserve all user info and only update XP
+        const fullUser = {
+          ...user,
+          xp: res.data.user?.xp || user.xp,
         }
+        setUser({ user: fullUser, token: localStorage.getItem('token') })
 
         setSpark({
           title: '',
@@ -40,6 +45,9 @@ const SparkForm = () => {
           urgency: '1hr',
           reward: '',
         })
+
+        // ✅ Redirect to dashboard
+        navigate('/dashboard')
       }
     } catch (err) {
       alert('Error launching Spark. Try again.')

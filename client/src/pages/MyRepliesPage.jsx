@@ -37,7 +37,9 @@ const MyRepliesPage = () => {
     <div className={dashboardStyles.wrapper}>
       <div className={dashboardStyles.card}>
         <h1>Your Replies</h1>
-        <p>These are Sparks you've replied to.</p>
+        <p style={{ color: '#333', fontSize: '16px' }}>
+          These are Sparks you've replied to.
+        </p>
 
         {repliedSparks.length > 0 ? (
           <ul className={replyStyles.replyList}>
@@ -57,7 +59,9 @@ const MyRepliesPage = () => {
             ))}
           </ul>
         ) : (
-          <p>You haven’t replied to any Sparks yet.</p>
+          <p style={{ color: '#555', fontSize: '15px', marginTop: '20px' }}>
+            You haven’t replied to any Sparks yet.
+          </p>
         )}
 
         <Link to="/explore" className={replyStyles.backLink}>

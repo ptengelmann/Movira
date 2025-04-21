@@ -30,7 +30,13 @@ const ReplyForm = ({ sparkId, onReplySubmit }) => {
     }
   }
 
-  if (!user) return <p style={{ fontSize: '14px' }}>Login to reply to this Spark.</p>
+  if (!user) {
+    return (
+      <p style={{ fontSize: '14px', color: '#333', marginTop: '12px' }}>
+        Login to reply to this Spark.
+      </p>
+    )
+  }
 
   return (
     <form className={styles.replyForm} onSubmit={handleSubmit}>

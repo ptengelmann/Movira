@@ -25,10 +25,11 @@
     gap: 40px;
   }
   
-  .role {
-    max-width: 250px;
+  .role p {
+    color: #333; /* or try #222 for stronger contrast */
+    font-size: 14px;
+    line-height: 1.5;
   }
-  
   .dropperTitle {
     color: #d63031;
     font-weight: bold;

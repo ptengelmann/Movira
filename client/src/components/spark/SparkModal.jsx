@@ -8,9 +8,9 @@ const SparkModal = ({ spark, onClose }) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <button className={styles.close} onClick={onClose}>
-          <X size={20} />
-        </button>
+      <button onClick={onClose} className={styles.close}>
+  ×
+</button>
         <h2>{spark.title}</h2>
         <p><strong>Tag:</strong> {spark.tag || 'General'}</p>
         <p><strong>Urgency:</strong> {spark.urgency}</p>

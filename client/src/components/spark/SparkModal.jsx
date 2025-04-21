@@ -1,21 +1,25 @@
 import React from 'react'
 import styles from './SparkModal.module.css'
-import { X } from 'lucide-react'
 
 const SparkModal = ({ spark, onClose }) => {
   if (!spark) return null
 
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-      <button onClick={onClose} className={styles.close}>
-  ×
-</button>
-        <h2>{spark.title}</h2>
-        <p><strong>Tag:</strong> {spark.tag || 'General'}</p>
-        <p><strong>Urgency:</strong> {spark.urgency}</p>
-        <p><strong>Reward:</strong> {spark.reward || 0} Sparks</p>
-        <p style={{ marginTop: '20px' }}>{spark.description}</p>
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <button onClick={onClose} className={styles.close}>×</button>
+
+        <h2 className={styles.title}>{spark.title}</h2>
+
+        <div className={styles.metaGroup}>
+          <p><span className={styles.label}>Tag:</span> {spark.tag || 'General'}</p>
+          <p><span className={styles.label}>Urgency:</span> {spark.urgency}</p>
+          <p><span className={styles.label}>Reward:</span> {spark.reward || 0} Sparks</p>
+        </div>
+
+        <div className={styles.description}>
+          {spark.description || 'No description provided.'}
+        </div>
       </div>
     </div>
   )

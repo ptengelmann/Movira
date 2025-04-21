@@ -50,7 +50,6 @@ const ExplorePage = () => {
           onChange={(e) => setTagFilter(e.target.value)}
           className={styles.filterInput}
         />
-
         <select
           value={sortOption}
           onChange={(e) => setSortOption(e.target.value)}
@@ -66,8 +65,22 @@ const ExplorePage = () => {
         <p>Loading sparks...</p>
       ) : filteredSparks.length > 0 ? (
         filteredSparks.map((spark) => (
-          <div key={spark._id} onClick={() => setSelectedSpark(spark)} style={{ cursor: 'pointer' }}>
+          <div key={spark._id} style={{ marginBottom: '20px' }}>
             <SparkCard spark={spark} />
+            <button
+              onClick={() => setSelectedSpark(spark)}
+              style={{
+                marginTop: '10px',
+                background: 'var(--motion-blue)',
+                color: 'white',
+                padding: '8px 14px',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              View Details
+            </button>
           </div>
         ))
       ) : (

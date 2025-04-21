@@ -1,39 +1,115 @@
-.section {
+.whySection {
     padding: 80px 20px;
-    background: #f9f9f9;
-    text-align: center;
+    background: var(--glow-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
-  .heading {
-    font-size: 32px;
-    font-weight: 700;
-    margin-bottom: 40px;
+  .content {
+    max-width: 1100px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+  
+  .text {
+    flex: 1;
+  }
+  
+  .subheading {
+    color: #444;
+    font-size: 18px;
+    margin: 10px 0 30px;
+    line-height: 1.6;
+  }
+  
+  .reasons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .reason {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  
+  .reason h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
     color: var(--motion-blue);
   }
   
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
-  
-  .card {
-    background: white;
-    padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-    transition: 0.3s ease;
-  }
-  
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  .reason p {
+    font-size: 15px;
+    color: #555;
+    margin-top: 4px;
   }
   
   .icon {
     color: var(--pulse-coral);
-    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+  
+  .visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .graphic {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 280px;
+  }
+  
+  .sparkCore {
+    font-size: 40px;
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .xpBar {
+    height: 12px;
+    background: #eee;
+    border-radius: 8px;
+    margin: 10px 0;
+    position: relative;
+  }
+  
+  .fill {
+    background: var(--motion-blue);
+    height: 100%;
+    width: 70%;
+    border-radius: 8px;
+  }
+  
+  .xpBar span {
+    font-size: 12px;
+    position: absolute;
+    right: 8px;
+    top: -20px;
+    color: #333;
+  }
+  
+  .levelTag {
+    font-size: 14px;
+    color: var(--pulse-coral);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
   }
   

@@ -1,42 +1,62 @@
 import React from 'react'
 import styles from './WhyMovira.module.css'
-import { Bolt, ShieldCheck, Users, Clock } from 'lucide-react'
-
-const reasons = [
-  {
-    icon: <Bolt size={28} />,
-    title: 'Real-Time Action',
-    description: 'Everything in Movira happens in real-time — Sparks expire quickly, creating urgency and momentum.',
-  },
-  {
-    icon: <Users size={28} />,
-    title: 'Community-Powered',
-    description: 'Movira is built on people helping people. Trust and reputation are earned, not bought.',
-  },
-  {
-    icon: <ShieldCheck size={28} />,
-    title: 'Reputation System',
-    description: 'Every action you take builds your trust level — making you more visible and valuable.',
-  },
-  {
-    icon: <Clock size={28} />,
-    title: 'No Time Wasters',
-    description: 'Forget ghosting. When a Spark is dropped, help arrives fast or it fades — that’s the rule.',
-  },
-]
+import { Zap, CheckCircle, Shield, Clock } from 'lucide-react'
 
 const WhyMovira = () => {
   return (
-    <section className={styles.section}>
-      <h2 className={styles.heading}>Why Movira?</h2>
-      <div className={styles.grid}>
-        {reasons.map((item, i) => (
-          <div key={i} className={styles.card}>
-            <div className={styles.icon}>{item.icon}</div>
-            <h4>{item.title}</h4>
-            <p>{item.description}</p>
+    <section className={styles.whySection}>
+      <div className={styles.content}>
+        <div className={styles.text}>
+          <h2>Why Trust Needs Movement.</h2>
+          <p className={styles.subheading}>
+            Movira isn’t just another help forum. It’s a real-time ecosystem where your actions build reputation — not clout.
+          </p>
+
+          <div className={styles.reasons}>
+            <div className={styles.reason}>
+              <Zap size={24} className={styles.icon} />
+              <div>
+                <h4>Real-Time Trust Loop</h4>
+                <p>Drop a spark, help instantly, and grow your reputation in real-time.</p>
+              </div>
+            </div>
+
+            <div className={styles.reason}>
+              <CheckCircle size={24} className={styles.icon} />
+              <div>
+                <h4>Verified by Action</h4>
+                <p>Gain XP and levels through real contributions, not likes or clout.</p>
+              </div>
+            </div>
+
+            <div className={styles.reason}>
+              <Shield size={24} className={styles.icon} />
+              <div>
+                <h4>Transparent Reputation</h4>
+                <p>Everything’s visible — sparks, replies, XP and trust levels are public.</p>
+              </div>
+            </div>
+
+            <div className={styles.reason}>
+              <Clock size={24} className={styles.icon} />
+              <div>
+                <h4>Built for Velocity</h4>
+                <p>No fluff. Just fast interactions, fast growth, fast outcomes.</p>
+              </div>
+            </div>
           </div>
-        ))}
+        </div>
+
+        <div className={styles.visual}>
+          <div className={styles.graphic}>
+            <div className={styles.sparkCore}>⚡</div>
+            <div className={styles.xpBar}>
+              <div className={styles.fill}></div>
+              <span>XP</span>
+            </div>
+            <div className={styles.levelTag}>Trust Level: Rising</div>
+          </div>
+        </div>
       </div>
     </section>
   )

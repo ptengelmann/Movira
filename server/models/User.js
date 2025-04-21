@@ -22,10 +22,10 @@ const UserSchema = new mongoose.Schema(
       default: 0,
     },
     role: {
-      type: String,
-      enum: ['user', 'admin'],
-      default: 'user',
-    },
+        type: String,
+        enum: ['dropper', 'responder'],
+        required: true,
+      },
     trustLevel: {
         type: String,
         enum: ['New', 'Rising', 'Trusted', 'Verified'],

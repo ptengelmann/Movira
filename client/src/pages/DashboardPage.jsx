@@ -3,7 +3,7 @@ import axios from 'axios'
 import useUserStore from '../store/useUserStore'
 import styles from './DashboardPage.module.css'
 import StatsWidget from '../components/dashboard/StatsWidget'
-import { Sparkles, TrendingUp, Mail } from 'lucide-react'
+import { Sparkles, TrendingUp, MessageCircle } from 'lucide-react'
 import SparkCard from '../components/spark/SparkCard'
 import ProgressWidget from '../components/dashboard/ProgressWidget'
 import ReplyNotificationWidget from '../components/dashboard/ReplyNotificationWidget'
@@ -32,44 +32,70 @@ const DashboardPage = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.card}>
-        <h1>Welcome back, {user?.name} 👋</h1>
-        <p>You currently have <strong>{user?.xp || 0}</strong> XP.</p>
+        <h1>👋 Welcome back, {user?.name}</h1>
+        <p className={styles.description}>
+  You have <strong>{user?.xp || 0} XP</strong> — keep building your badge and reputation!
+</p>
 
-        <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginTop: '30px' }}>
+        <div className={styles.statsRow}>
           <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
           <StatsWidget label="Badge" value={<XPBadge xp={user?.xp || 0} />} icon={<TrendingUp />} />
         </div>
 
-        <ReplyNotificationWidget />
-        <div style={{ marginTop: '20px' }}>
-          <ProgressWidget currentXP={user?.xp || 0} />
-        </div>
+        <ProgressWidget currentXP={user?.xp || 0} />
 
-        {user?.role === 'dropper' ? (
+        {/* Role Card for Dropper */}
+        {user?.role === 'dropper' && (
+          <div className={styles.roleCardDropper}>
+            <MessageCircle size={20} />
+            <div>
+              <strong>Your Role: Dropper</strong>
+              <p>
+                Post Sparks when you need help. The community responds in real time, and you build trust by
+                participating.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Role Card for Responder */}
+        {user?.role === 'responder' && (
+          <div className={styles.roleCardResponder}>
+            <MessageCircle size={20} />
+            <div>
+              <strong>Your Role: Responder</strong>
+              <p>
+                Head to <strong>Explore</strong> to start helping others and earn XP.
+              </p>
+            </div>
+          </div>
+        )}
+
+        <ReplyNotificationWidget />
+
+        {/* Dropper's Sparks List */}
+        {user?.role === 'dropper' && (
           <>
-            <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
+            <h3>Your Sparks</h3>
             {userSparks.length > 0 ? (
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+              <div className={styles.sparkGrid}>
                 {userSparks.map((spark) => (
-                  <SparkCard key={spark._id} spark={spark} onDelete={(id) => {
-                    if (window.confirm('Delete this Spark?')) {
-                      axios.delete(`http://localhost:5000/api/sparks/${id}`)
-                      setUserSparks((prev) => prev.filter(s => s._id !== id))
-                    }
-                  }} />
+                  <SparkCard
+                    key={spark._id}
+                    spark={spark}
+                    onDelete={(id) => {
+                      if (window.confirm('Delete this Spark?')) {
+                        axios.delete(`http://localhost:5000/api/sparks/${id}`)
+                        setUserSparks((prev) => prev.filter((s) => s._id !== id))
+                      }
+                    }}
+                  />
                 ))}
               </div>
             ) : (
-              <p>You haven’t dropped any Sparks yet.</p>
+              <p><em>You haven’t dropped any Sparks yet.</em></p>
             )}
           </>
-        ) : (
-          <div style={{ marginTop: '30px' }}>
-            <h3>Your Role: Responder</h3>
-            <p>
-              Head to the <strong>Explore</strong> page to find Sparks and build your XP by helping others.
-            </p>
-          </div>
         )}
       </div>
     </div>

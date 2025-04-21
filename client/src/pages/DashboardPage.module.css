@@ -1,36 +1,104 @@
-.card h1,
-.card h3 {
-  color: var(--motion-blue);
-  font-weight: 700;
-}
-
-.card p,
-.card span,
-.card li {
-  color: #222;
-  font-size: 16px;
-}
-
-.card li {
-  background: #f9f9f9;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
-  list-style: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-}
-
-.card li strong {
-  font-size: 16px;
-  color: var(--pulse-coral);
-}
-
-.card li em {
-  font-style: italic;
-  color: #333;
-}
-
-.card li span {
-  font-size: 14px;
-  color: #444;
-}
+.wrapper {
+    padding: 60px 20px;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    margin-bottom: 20px;
+  }
+  
+  .header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--motion-blue);
+  }
+  
+  .header p {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .widgets {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  .sectionTitle {
+    margin-top: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--motion-blue);
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .emptyState {
+    margin-top: 16px;
+    font-style: italic;
+    color: #777;
+  }
+  
+  .progressBox {
+    margin-top: 20px;
+    background: #f8faff;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e4e7ee;
+  }
+  
+  .statsRow {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+  
+  .sparkGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .roleCardResponder,
+  .roleCardDropper {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--soft-coral-light);
+    border-left: 4px solid var(--pulse-coral);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+  }
+  
+  .roleCardDropper {
+    background: #eaf4ff;
+    border-left: 4px solid var(--motion-blue);
+  }
+  
+  .roleCardDropper p,
+  .roleCardResponder p {
+    margin: 6px 0 0;
+    color: #333;
+    font-size: 15px;
+  }
+  
+  .roleCardDropper strong,
+  .roleCardResponder strong {
+    font-size: 16px;
+    color: var(--motion-blue);
+  }
+  .description {
+    font-size: 16px;
+    color: #222; /* Much darker for readability */
+    line-height: 1.5;
+  }

@@ -1,31 +1,31 @@
 import React from 'react'
 import styles from './ProgressWidget.module.css'
 
+const getLevelFromXP = (xp) => {
+  if (xp >= 100) return { label: 'Verified', next: null }
+  if (xp >= 50) return { label: 'Trusted', next: 100 }
+  if (xp >= 20) return { label: 'Rising', next: 50 }
+  return { label: 'New', next: 20 }
+}
+
 const ProgressWidget = ({ currentXP }) => {
-  // XP milestones
-  const levels = [
-    { level: 'New', xp: 0 },
-    { level: 'Rising', xp: 20 },
-    { level: 'Trusted', xp: 50 },
-    { level: 'Verified', xp: 100 },
-  ]
-
-  // Find current and next level
-  const currentLevel = levels.findLast(l => currentXP >= l.xp) || levels[0]
-  const nextLevel = levels.find(l => l.xp > currentXP)
-
-  const xpNeeded = nextLevel ? nextLevel.xp - currentXP : 0
-  const progress = nextLevel
-    ? ((currentXP - currentLevel.xp) / (nextLevel.xp - currentLevel.xp)) * 100
-    : 100
+  const { label, next } = getLevelFromXP(currentXP)
+  const progressPercent = next ? (currentXP / next) * 100 : 100
+  const xpToNext = next ? next - currentXP : 0
 
   return (
-    <div className={styles.wrapper}>
-      <h4>Progress to <span>{nextLevel ? nextLevel.level : 'Max'}</span></h4>
+    <div className={styles.progressBox}>
+      <p className={styles.title}>
+        Progress to <span className={styles.level}>{label}</span>
+      </p>
       <div className={styles.bar}>
-        <div className={styles.fill} style={{ width: `${progress}%` }} />
+        <div className={styles.fill} style={{ width: `${progressPercent}%` }} />
       </div>
-      <p>{currentXP} XP • {xpNeeded > 0 ? `${xpNeeded} XP to next level` : 'You’re at the top 🎯'}</p>
+      {next && (
+        <p className={styles.xpInfo}>
+          <strong>{currentXP} XP</strong> • <span>{xpToNext} XP to next level</span>
+        </p>
+      )}
     </div>
   )
 }

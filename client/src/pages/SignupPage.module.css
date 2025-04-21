@@ -1,0 +1,57 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 20px;
+  }
+  
+  .roleSelection {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  .roleCard {
+    flex: 1;
+    min-width: 200px;
+    padding: 16px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    background: #fff;
+  }
+  
+  .roleCard:hover {
+    border-color: var(--motion-blue);
+  }
+  
+  .roleCard.selected {
+    border-color: var(--pulse-coral);
+    background: #fff4f4;
+  }
+  
+  .roleTitle {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .roleDesc {
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .submitBtn {
+    padding: 12px;
+    font-weight: bold;
+    background: var(--pulse-coral);
+    color: white;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  

@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useUserStore from '../store/useUserStore'
 import AuthFormLayout from '../components/auth/AuthFormLayout'
+import styles from './SignupPage.module.css'
+import { UserPlus, HeartHandshake } from 'lucide-react'
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -12,10 +14,15 @@ const SignupPage = () => {
     name: '',
     email: '',
     password: '',
+    role: '', // ✅ include role
   })
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value })
+  }
+
+  const handleRoleSelect = (role) => {
+    setForm({ ...form, role })
   }
 
   const handleSubmit = async (e) => {
@@ -38,7 +45,7 @@ const SignupPage = () => {
 
   return (
     <AuthFormLayout title="Create an Account">
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <form onSubmit={handleSubmit} className={styles.wrapper}>
         <input
           type="text"
           name="name"
@@ -63,9 +70,31 @@ const SignupPage = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit" style={{ padding: '12px', fontWeight: 'bold', background: 'var(--pulse-coral)', color: 'white', borderRadius: '8px', border: 'none' }}>
-          Sign Up
-        </button>
+
+        <div>
+          <label><strong>Select your role:</strong></label>
+          <div className={styles.roleSelection}>
+            <div
+              className={`${styles.roleCard} ${form.role === 'dropper' ? styles.selected : ''}`}
+              onClick={() => handleRoleSelect('dropper')}
+            >
+              <UserPlus size={28} />
+              <div className={styles.roleTitle}>Dropper</div>
+              <div className={styles.roleDesc}>Need help with something? Drop a Spark and get fast support.</div>
+            </div>
+
+            <div
+              className={`${styles.roleCard} ${form.role === 'responder' ? styles.selected : ''}`}
+              onClick={() => handleRoleSelect('responder')}
+            >
+              <HeartHandshake size={28} />
+              <div className={styles.roleTitle}>Responder</div>
+              <div className={styles.roleDesc}>Want to help others and earn trust? Become a Responder.</div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" className={styles.submitBtn}>Sign Up</button>
       </form>
     </AuthFormLayout>
   )

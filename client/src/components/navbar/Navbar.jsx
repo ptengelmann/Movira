@@ -17,42 +17,45 @@ const Navbar = () => {
         </li>
 
         {user ? (
-          <>
-            <li>
-              <Link to="/spark">Drop a Spark</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/my-replies">My Replies</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link
-                to="/"
-                onClick={(e) => {
-                  e.preventDefault()
-                  logout()
-                }}
-                className={styles.navLink}
-              >
-                Logout
-              </Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </>
-        )}
+  <>
+    {user.role === 'dropper' && (
+      <li>
+        <Link to="/spark">Drop a Spark</Link>
+      </li>
+    )}
+    <li>
+      <Link to="/dashboard">Dashboard</Link>
+    </li>
+    <li>
+      <Link to="/my-replies">My Replies</Link>
+    </li>
+    <li>
+      <Link to="/profile">Profile</Link>
+    </li>
+    <li>
+      <Link
+        to="/"
+        onClick={(e) => {
+          e.preventDefault()
+          logout()
+        }}
+        className={styles.navLink}
+      >
+        Logout
+      </Link>
+    </li>
+  </>
+) : (
+  <>
+    <li>
+      <Link to="/signup">Sign Up</Link>
+    </li>
+    <li>
+      <Link to="/login">Login</Link>
+    </li>
+  </>
+)}
+
       </ul>
     </nav>
   )

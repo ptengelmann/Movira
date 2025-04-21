@@ -3,40 +3,31 @@ import axios from 'axios'
 import useUserStore from '../store/useUserStore'
 import styles from './DashboardPage.module.css'
 import StatsWidget from '../components/dashboard/StatsWidget'
-import { Sparkles, TrendingUp } from 'lucide-react'
+import { Sparkles, TrendingUp, Mail } from 'lucide-react'
 import SparkCard from '../components/spark/SparkCard'
 import ProgressWidget from '../components/dashboard/ProgressWidget'
 import ReplyNotificationWidget from '../components/dashboard/ReplyNotificationWidget'
-import XPBadge from '../components/dashboard/XPBadge' // ✅ New import
+import XPBadge from '../components/dashboard/XPBadge'
 
 const DashboardPage = () => {
   const { user } = useUserStore()
   const [userSparks, setUserSparks] = useState([])
 
   useEffect(() => {
-    const fetchSparks = async () => {
-      try {
-        const res = await axios.get(`http://localhost:5000/api/sparks/user/${user._id}`)
-        if (res.data.success) {
-          setUserSparks(res.data.data)
+    if (user?.role === 'dropper') {
+      const fetchSparks = async () => {
+        try {
+          const res = await axios.get(`http://localhost:5000/api/sparks/user/${user._id}`)
+          if (res.data.success) {
+            setUserSparks(res.data.data)
+          }
+        } catch (err) {
+          console.error('Error fetching user sparks:', err)
         }
-      } catch (err) {
-        console.error('Error fetching user sparks:', err)
       }
+      fetchSparks()
     }
-
-    fetchSparks()
-  }, [user._id])
-
-  const handleDelete = async (sparkId) => {
-    if (!window.confirm('Are you sure you want to delete this Spark?')) return
-    try {
-      await axios.delete(`http://localhost:5000/api/sparks/${sparkId}`)
-      setUserSparks((prev) => prev.filter((s) => s._id !== sparkId))
-    } catch (err) {
-      console.error('Delete failed:', err)
-    }
-  }
+  }, [user])
 
   return (
     <div className={styles.wrapper}>
@@ -50,20 +41,35 @@ const DashboardPage = () => {
         </div>
 
         <ReplyNotificationWidget />
-
         <div style={{ marginTop: '20px' }}>
           <ProgressWidget currentXP={user?.xp || 0} />
         </div>
 
-        <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
-        {userSparks.length > 0 ? (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
-            {userSparks.map((spark) => (
-              <SparkCard key={spark._id} spark={spark} onDelete={handleDelete} />
-            ))}
-          </div>
+        {user?.role === 'dropper' ? (
+          <>
+            <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
+            {userSparks.length > 0 ? (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '20px' }}>
+                {userSparks.map((spark) => (
+                  <SparkCard key={spark._id} spark={spark} onDelete={(id) => {
+                    if (window.confirm('Delete this Spark?')) {
+                      axios.delete(`http://localhost:5000/api/sparks/${id}`)
+                      setUserSparks((prev) => prev.filter(s => s._id !== id))
+                    }
+                  }} />
+                ))}
+              </div>
+            ) : (
+              <p>You haven’t dropped any Sparks yet.</p>
+            )}
+          </>
         ) : (
-          <p>You haven’t dropped any Sparks yet.</p>
+          <div style={{ marginTop: '30px' }}>
+            <h3>Your Role: Responder</h3>
+            <p>
+              Head to the <strong>Explore</strong> page to find Sparks and build your XP by helping others.
+            </p>
+          </div>
         )}
       </div>
     </div>

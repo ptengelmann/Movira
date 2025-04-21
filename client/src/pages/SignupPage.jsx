@@ -3,8 +3,19 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useUserStore from '../store/useUserStore'
 import AuthFormLayout from '../components/auth/AuthFormLayout'
-import styles from './SignupPage.module.css'
-import { UserPlus, HeartHandshake } from 'lucide-react'
+
+const roleOptions = [
+  {
+    id: 'dropper',
+    title: 'Dropper',
+    description: 'Post Sparks when you need help or want fast feedback.',
+  },
+  {
+    id: 'responder',
+    title: 'Responder',
+    description: 'Respond to Sparks, gain XP, and build reputation.',
+  },
+]
 
 const SignupPage = () => {
   const navigate = useNavigate()
@@ -14,7 +25,7 @@ const SignupPage = () => {
     name: '',
     email: '',
     password: '',
-    role: '', // ✅ include role
+    role: '', // ✅ new field
   })
 
   const handleChange = (e) => {
@@ -27,6 +38,7 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (!form.role) return alert('Please select a role.')
     try {
       const res = await axios.post('http://localhost:5000/api/auth/signup', form)
       if (res.data.success) {
@@ -45,7 +57,27 @@ const SignupPage = () => {
 
   return (
     <AuthFormLayout title="Create an Account">
-      <form onSubmit={handleSubmit} className={styles.wrapper}>
+      <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
+        {roleOptions.map((opt) => (
+          <div
+            key={opt.id}
+            onClick={() => handleRoleSelect(opt.id)}
+            style={{
+              flex: 1,
+              padding: '16px',
+              borderRadius: '10px',
+              border: form.role === opt.id ? '3px solid var(--pulse-coral)' : '2px solid #ccc',
+              cursor: 'pointer',
+              transition: '0.2s',
+            }}
+          >
+            <h4 style={{ marginBottom: '6px', color: '#222' }}>{opt.title}</h4>
+            <p style={{ fontSize: '14px', color: '#555' }}>{opt.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <input
           type="text"
           name="name"
@@ -70,31 +102,19 @@ const SignupPage = () => {
           onChange={handleChange}
           required
         />
-
-        <div>
-          <label><strong>Select your role:</strong></label>
-          <div className={styles.roleSelection}>
-            <div
-              className={`${styles.roleCard} ${form.role === 'dropper' ? styles.selected : ''}`}
-              onClick={() => handleRoleSelect('dropper')}
-            >
-              <UserPlus size={28} />
-              <div className={styles.roleTitle}>Dropper</div>
-              <div className={styles.roleDesc}>Need help with something? Drop a Spark and get fast support.</div>
-            </div>
-
-            <div
-              className={`${styles.roleCard} ${form.role === 'responder' ? styles.selected : ''}`}
-              onClick={() => handleRoleSelect('responder')}
-            >
-              <HeartHandshake size={28} />
-              <div className={styles.roleTitle}>Responder</div>
-              <div className={styles.roleDesc}>Want to help others and earn trust? Become a Responder.</div>
-            </div>
-          </div>
-        </div>
-
-        <button type="submit" className={styles.submitBtn}>Sign Up</button>
+        <button
+          type="submit"
+          style={{
+            padding: '12px',
+            fontWeight: 'bold',
+            background: 'var(--pulse-coral)',
+            color: 'white',
+            borderRadius: '8px',
+            border: 'none',
+          }}
+        >
+          Sign Up
+        </button>
       </form>
     </AuthFormLayout>
   )

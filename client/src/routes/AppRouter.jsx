@@ -25,11 +25,19 @@ const AppRouter = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/my-replies" element={<MyRepliesPage />} />
           <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/login" />} />
-
           <Route
-            path="/spark"
-            element={user ? <DropSparkPage /> : <Navigate to="/login" />}
-          />
+  path="/spark"
+  element={
+    user && user.role === 'dropper' ? <DropSparkPage /> : <Navigate to="/" />
+  }
+/>
+
+<Route
+  path="/my-replies"
+  element={
+    user && user.role === 'responder' ? <MyRepliesPage /> : <Navigate to="/" />
+  }
+/>
           <Route
             path="/dashboard"
             element={user ? <DashboardPage /> : <Navigate to="/login" />}

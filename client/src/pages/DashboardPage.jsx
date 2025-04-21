@@ -6,15 +6,13 @@ import StatsWidget from '../components/dashboard/StatsWidget'
 import { Sparkles, TrendingUp } from 'lucide-react'
 import SparkCard from '../components/spark/SparkCard'
 import ProgressWidget from '../components/dashboard/ProgressWidget'
-import ReplyNotificationWidget from '../components/dashboard/ReplyNotificationWidget' // ✅ add this
-
-
+import ReplyNotificationWidget from '../components/dashboard/ReplyNotificationWidget'
+import XPBadge from '../components/dashboard/XPBadge' // ✅ New import
 
 const DashboardPage = () => {
   const { user } = useUserStore()
   const [userSparks, setUserSparks] = useState([])
 
-  // Fetch user's sparks
   useEffect(() => {
     const fetchSparks = async () => {
       try {
@@ -30,7 +28,6 @@ const DashboardPage = () => {
     fetchSparks()
   }, [user._id])
 
-  // Handle deletion
   const handleDelete = async (sparkId) => {
     if (!window.confirm('Are you sure you want to delete this Spark?')) return
     try {
@@ -41,17 +38,6 @@ const DashboardPage = () => {
     }
   }
 
-  // ✅ Trust level logic
-  const getTrustLevel = () => {
-    const xp = user?.xp || 0
-    const sparks = userSparks.length
-
-    if (xp >= 100 && sparks >= 25) return 'Verified'
-    if (xp >= 50 && sparks >= 10) return 'Trusted'
-    if (xp >= 20 && sparks >= 2) return 'Rising'
-    return 'New'
-  }
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.card}>
@@ -60,13 +46,14 @@ const DashboardPage = () => {
 
         <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginTop: '30px' }}>
           <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
-          <StatsWidget label="Trust Level" value={getTrustLevel()} icon={<TrendingUp />} />
+          <StatsWidget label="Badge" value={<XPBadge xp={user?.xp || 0} />} icon={<TrendingUp />} />
         </div>
-        <ReplyNotificationWidget /> 
+
+        <ReplyNotificationWidget />
 
         <div style={{ marginTop: '20px' }}>
-  <ProgressWidget currentXP={user?.xp || 0} />
-</div>
+          <ProgressWidget currentXP={user?.xp || 0} />
+        </div>
 
         <h3 style={{ marginTop: '30px' }}>Your Sparks</h3>
         {userSparks.length > 0 ? (

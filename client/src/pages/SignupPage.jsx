@@ -3,17 +3,20 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import useUserStore from '../store/useUserStore'
 import AuthFormLayout from '../components/auth/AuthFormLayout'
+import { Rocket, Handshake } from 'lucide-react' // ✅ Icons
 
 const roleOptions = [
   {
     id: 'dropper',
     title: 'Dropper',
     description: 'Post Sparks when you need help or want fast feedback.',
+    icon: <Rocket size={24} />,
   },
   {
     id: 'responder',
     title: 'Responder',
     description: 'Respond to Sparks, gain XP, and build reputation.',
+    icon: <Handshake size={24} />,
   },
 ]
 
@@ -25,7 +28,7 @@ const SignupPage = () => {
     name: '',
     email: '',
     password: '',
-    role: '', // ✅ new field
+    role: '',
   })
 
   const handleChange = (e) => {
@@ -57,21 +60,26 @@ const SignupPage = () => {
 
   return (
     <AuthFormLayout title="Create an Account">
-      <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
+      <div style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexWrap: 'wrap' }}>
         {roleOptions.map((opt) => (
           <div
             key={opt.id}
             onClick={() => handleRoleSelect(opt.id)}
             style={{
-              flex: 1,
-              padding: '16px',
-              borderRadius: '10px',
+              flex: '1 1 48%',
+              padding: '18px',
+              borderRadius: '12px',
               border: form.role === opt.id ? '3px solid var(--pulse-coral)' : '2px solid #ccc',
               cursor: 'pointer',
               transition: '0.2s',
+              background: form.role === opt.id ? 'rgba(255, 107, 107, 0.05)' : '#fafafa',
+              boxShadow: form.role === opt.id ? '0 0 0 3px rgba(255, 107, 107, 0.1)' : 'none',
             }}
           >
-            <h4 style={{ marginBottom: '6px', color: '#222' }}>{opt.title}</h4>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+              {opt.icon}
+              <h4 style={{ margin: 0, fontSize: '16px', color: '#222' }}>{opt.title}</h4>
+            </div>
             <p style={{ fontSize: '14px', color: '#555' }}>{opt.description}</p>
           </div>
         ))}

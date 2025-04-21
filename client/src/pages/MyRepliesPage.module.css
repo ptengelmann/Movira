@@ -1,0 +1,48 @@
+.replyList {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .replyItem {
+    background: #f9f9f9;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+  
+  .replyHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: var(--motion-blue);
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+  
+  .replyMessage {
+    color: #444;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  
+  .timestamp {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  .backLink {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--motion-blue);
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.2s;
+  }
+  
+  .backLink:hover {
+    text-decoration: underline;
+  }
+  

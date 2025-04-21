@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import useUserStore from '../store/useUserStore'
-import styles from './DashboardPage.module.css' // reuse existing styles
 import { Link } from 'react-router-dom'
+import useUserStore from '../store/useUserStore'
+import dashboardStyles from './DashboardPage.module.css'
+import replyStyles from './MyRepliesPage.module.css'
 import { MessageCircleReply } from 'lucide-react'
 
 const MyRepliesPage = () => {
@@ -33,28 +34,23 @@ const MyRepliesPage = () => {
   }, [user._id])
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.card}>
+    <div className={dashboardStyles.wrapper}>
+      <div className={dashboardStyles.card}>
         <h1>Your Replies</h1>
         <p>These are Sparks you've replied to.</p>
 
         {repliedSparks.length > 0 ? (
-          <ul style={{ marginTop: '20px' }}>
+          <ul className={replyStyles.replyList}>
             {repliedSparks.map((spark) => (
-              <li
-                key={spark._id}
-                style={{
-                  padding: '12px',
-                  borderBottom: '1px solid #ddd',
-                  marginBottom: '12px',
-                }}
-              >
-                <strong>{spark.title}</strong> <br />
-                <span style={{ fontSize: '14px' }}>
+              <li className={replyStyles.replyItem} key={spark._id}>
+                <div className={replyStyles.replyHeader}>
+                  <MessageCircleReply size={18} />
+                  <strong>{spark.title}</strong>
+                </div>
+                <p className={replyStyles.replyMessage}>
                   You replied: <em>{spark.myReply.message}</em>
-                </span>{' '}
-                <br />
-                <span style={{ fontSize: '12px', color: '#888' }}>
+                </p>
+                <span className={replyStyles.timestamp}>
                   {new Date(spark.myReply.createdAt).toLocaleString()}
                 </span>
               </li>
@@ -64,7 +60,7 @@ const MyRepliesPage = () => {
           <p>You haven’t replied to any Sparks yet.</p>
         )}
 
-        <Link to="/explore" style={{ marginTop: '20px', display: 'inline-block', color: 'var(--motion-blue)' }}>
+        <Link to="/explore" className={replyStyles.backLink}>
           ← Back to Explore
         </Link>
       </div>

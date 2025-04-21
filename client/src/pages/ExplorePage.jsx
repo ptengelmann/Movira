@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import SparkCard from '../components/spark/SparkCard'
+import SparkModal from '../components/spark/SparkModal'
 import styles from './ExplorePage.module.css'
 
 const ExplorePage = () => {
@@ -8,6 +9,7 @@ const ExplorePage = () => {
   const [loading, setLoading] = useState(true)
   const [tagFilter, setTagFilter] = useState('')
   const [sortOption, setSortOption] = useState('recent')
+  const [selectedSpark, setSelectedSpark] = useState(null)
 
   useEffect(() => {
     const fetchSparks = async () => {
@@ -33,7 +35,7 @@ const ExplorePage = () => {
     .sort((a, b) => {
       if (sortOption === 'reward') return b.reward - a.reward
       if (sortOption === 'replies') return (b.replies?.length || 0) - (a.replies?.length || 0)
-      return new Date(b.createdAt) - new Date(a.createdAt) // recent
+      return new Date(b.createdAt) - new Date(a.createdAt)
     })
 
   return (
@@ -63,9 +65,17 @@ const ExplorePage = () => {
       {loading ? (
         <p>Loading sparks...</p>
       ) : filteredSparks.length > 0 ? (
-        filteredSparks.map((spark) => <SparkCard key={spark._id} spark={spark} />)
+        filteredSparks.map((spark) => (
+          <div key={spark._id} onClick={() => setSelectedSpark(spark)} style={{ cursor: 'pointer' }}>
+            <SparkCard spark={spark} />
+          </div>
+        ))
       ) : (
         <p>No Sparks yet. Be the first to drop one!</p>
+      )}
+
+      {selectedSpark && (
+        <SparkModal spark={selectedSpark} onClose={() => setSelectedSpark(null)} />
       )}
     </div>
   )

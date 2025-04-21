@@ -1,0 +1,61 @@
+.wrapper {
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .banner {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .banner h2 {
+    font-size: 26px;
+    margin-bottom: 6px;
+    color: var(--motion-blue);
+  }
+  
+  .banner p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .icon {
+    color: var(--pulse-coral);
+  }
+  .deleteBtn {
+  margin-top: 30px;
+  padding: 12px 20px;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.deleteBtn:hover {
+  background-color: #e74c3c;
+}

@@ -9,6 +9,8 @@ import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
 import MyRepliesPage from '../pages/MyRepliesPage' // ✅ New page
 import useUserStore from '../store/useUserStore'
+import ProfilePage from '../pages/ProfilePage' // at the top
+
 
 const AppRouter = () => {
   const user = useUserStore((state) => state.user)
@@ -22,6 +24,8 @@ const AppRouter = () => {
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/my-replies" element={<MyRepliesPage />} />
+          <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/login" />} />
+
           <Route
             path="/spark"
             element={user ? <DropSparkPage /> : <Navigate to="/login" />}

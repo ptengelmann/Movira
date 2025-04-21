@@ -28,6 +28,9 @@ const Navbar = () => {
               <Link to="/my-replies">My Replies</Link>
             </li>
             <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
               <Link
                 to="/"
                 onClick={(e) => {

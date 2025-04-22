@@ -2,14 +2,18 @@ import React from 'react'
 import styles from './Footer.module.css'
 import { Link } from 'react-router-dom'
 import { Instagram, Facebook, Linkedin } from 'lucide-react'
-import { SiX } from 'react-icons/si' // ✅ for X (Twitter)
+import { SiX } from 'react-icons/si'
+import logo from '../../assets/movira.svg' // ✅ Logo
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.left}>
-          <Link to="/" className={styles.logo}>Movira</Link>
+          <Link to="/" className={styles.logoWrapper}>
+            <img src={logo} alt="Movira Logo" className={styles.logoImage} />
+            <span className={styles.logoText}>Movira</span>
+          </Link>
           <p className={styles.slogan}>Built for trust. Powered by action.</p>
           <div className={styles.socials}>
             <a href="https://www.instagram.com" target="_blank" rel="noreferrer"><Instagram size={18} /></a>
@@ -41,7 +45,7 @@ const Footer = () => {
       </div>
 
       <div className={styles.bottom}>
-        © 2025 Movira. All rights reserved.
+        © 2025 <span className={styles.brand}>Movira</span>. All rights reserved.
       </div>
     </footer>
   )

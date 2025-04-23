@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './SparkCard.module.css'
-import { BadgeDollarSign, AlarmClock, Trash2 } from 'lucide-react'
+import { BadgeDollarSign, AlarmClock, Trash2, Zap } from 'lucide-react'
 import ReplyForm from './ReplyForm'
 import useUserStore from '../../store/useUserStore'
 import axios from 'axios'
@@ -23,10 +23,15 @@ const SparkCard = ({ spark, onDelete }) => {
   }
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${spark.xpBoost ? styles.boosted : ''}`}>
       <div className={styles.header}>
         <h3>{spark.title}</h3>
-        <span className={styles.tag}>{spark.tag || 'General'}</span>
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+          {spark.xpBoost && (
+            <span className={styles.boostBadge}><Zap size={14} /> Boosted</span>
+          )}
+          <span className={styles.tag}>{spark.tag || 'General'}</span>
+        </div>
       </div>
 
       <p className={styles.description}>{spark.description}</p>
@@ -43,6 +48,12 @@ const SparkCard = ({ spark, onDelete }) => {
           </span>
         )}
       </div>
+
+      {spark.xpBoost && (
+  <span className={styles.boosted}>
+    ⚡ Boosted
+  </span>
+)}
 
       {onDelete && (
         <button className={styles.deleteBtn} onClick={() => onDelete(spark._id)}>

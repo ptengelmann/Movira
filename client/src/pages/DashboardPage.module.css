@@ -102,3 +102,69 @@
     color: #222; /* Much darker for readability */
     line-height: 1.5;
   }
+
+  .sparkCard {
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    transition: 0.2s ease;
+  }
+  
+  .boostedCard {
+    border: 2px solid var(--pulse-coral);
+    background: #fffafa;
+  }
+  
+  .sparkTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  
+  .boostedLabel {
+    font-size: 13px;
+    color: var(--pulse-coral);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #ffecec;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: 500;
+  }
+  
+  .sparkDescription {
+    font-size: 14px;
+    color: #444;
+    margin: 8px 0;
+  }
+  
+  .meta {
+    display: flex;
+    gap: 14px;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .deleteBtn {
+    background: #ffe8e8;
+    color: #d11a2a;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+  }
+  
+  .deleteBtn:hover {
+    background: #ffd0d0;
+  }
+  

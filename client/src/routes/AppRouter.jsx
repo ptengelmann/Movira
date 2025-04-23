@@ -7,10 +7,9 @@ import DropSparkPage from '../pages/DropSparkPage'
 import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
-import MyRepliesPage from '../pages/MyRepliesPage' // ✅ New page
+import MyApplicationsPage from '../pages/MyApplicationsPage'
 import useUserStore from '../store/useUserStore'
-import ProfilePage from '../pages/ProfilePage' // at the top
-
+import ProfilePage from '../pages/ProfilePage'
 
 const AppRouter = () => {
   const user = useUserStore((state) => state.user)
@@ -23,21 +22,21 @@ const AppRouter = () => {
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/my-replies" element={<MyRepliesPage />} />
           <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/login" />} />
+          
+          {/* Drop Spark only for Droppers */}
           <Route
-  path="/spark"
-  element={
-    user && user.role === 'dropper' ? <DropSparkPage /> : <Navigate to="/" />
-  }
-/>
+            path="/spark"
+            element={user && user.role === 'dropper' ? <DropSparkPage /> : <Navigate to="/" />}
+          />
 
-<Route
-  path="/my-replies"
-  element={
-    user && user.role === 'responder' ? <MyRepliesPage /> : <Navigate to="/" />
-  }
-/>
+          {/* Applications page for both roles */}
+          <Route
+            path="/applications"
+            element={user ? <MyApplicationsPage /> : <Navigate to="/login" />}
+          />
+
+          {/* Dashboard for all users */}
           <Route
             path="/dashboard"
             element={user ? <DashboardPage /> : <Navigate to="/login" />}

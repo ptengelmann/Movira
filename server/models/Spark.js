@@ -16,8 +16,8 @@ const SparkSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    xpBoost: { type: Boolean, default: false }, // ✅ NEW FIELD
-    replies: [
+    xpBoost: { type: Boolean, default: false },
+    applications: [ // ✅ New system
       {
         userId: String,
         username: String,

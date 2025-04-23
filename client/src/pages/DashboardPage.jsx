@@ -6,7 +6,7 @@ import StatsWidget from '../components/dashboard/StatsWidget'
 import { Sparkles, TrendingUp, MessageCircle } from 'lucide-react'
 import SparkCard from '../components/spark/SparkCard'
 import ProgressWidget from '../components/dashboard/ProgressWidget'
-import ReplyNotificationWidget from '../components/dashboard/ReplyNotificationWidget'
+import ApplicationNotificationWidget from '../components/dashboard/ApplicationNotificationWidget'
 import XPBadge from '../components/dashboard/XPBadge'
 
 const DashboardPage = () => {
@@ -34,8 +34,8 @@ const DashboardPage = () => {
       <div className={styles.card}>
         <h1>👋 Welcome back, {user?.name}</h1>
         <p className={styles.description}>
-  You have <strong>{user?.xp || 0} XP</strong> — keep building your badge and reputation!
-</p>
+          You have <strong>{user?.xp || 0} XP</strong> — keep building your badge and reputation!
+        </p>
 
         <div className={styles.statsRow}>
           <StatsWidget label="XP" value={user?.xp || 0} icon={<Sparkles />} />
@@ -44,39 +44,38 @@ const DashboardPage = () => {
 
         <ProgressWidget currentXP={user?.xp || 0} />
 
-        {/* Role Card for Dropper */}
+        {/* Role Info Cards */}
         {user?.role === 'dropper' && (
           <div className={styles.roleCardDropper}>
             <MessageCircle size={20} />
             <div>
               <strong>Your Role: Dropper</strong>
               <p>
-                Post Sparks when you need help. The community responds in real time, and you build trust by
-                participating.
+                Post Sparks when you need help. Helpers send private applications with proposals.
               </p>
             </div>
           </div>
         )}
 
-        {/* Role Card for Responder */}
         {user?.role === 'responder' && (
           <div className={styles.roleCardResponder}>
             <MessageCircle size={20} />
             <div>
               <strong>Your Role: Responder</strong>
               <p>
-                Head to <strong>Explore</strong> to start helping others and earn XP.
+                Head to <strong>Explore</strong> to apply to Sparks and earn XP.
               </p>
             </div>
           </div>
         )}
 
-        <ReplyNotificationWidget />
+        {/* 🔔 Notification Widget */}
+        <ApplicationNotificationWidget />
 
         {/* Dropper's Sparks List */}
         {user?.role === 'dropper' && (
           <>
-            <h3>Your Sparks</h3>
+            <h3 className={styles.sectionTitle}>Your Sparks</h3>
             {userSparks.length > 0 ? (
               <div className={styles.sparkGrid}>
                 {userSparks.map((spark) => (
@@ -93,7 +92,7 @@ const DashboardPage = () => {
                 ))}
               </div>
             ) : (
-              <p><em>You haven’t dropped any Sparks yet.</em></p>
+              <p className={styles.emptyState}><em>You haven’t dropped any Sparks yet.</em></p>
             )}
           </>
         )}

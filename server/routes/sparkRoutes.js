@@ -3,7 +3,6 @@ const router = express.Router()
 const Spark = require('../models/Spark')
 const User = require('../models/User')
 
-
 // GET all Sparks
 router.get('/', async (req, res) => {
   try {
@@ -41,7 +40,7 @@ router.post('/', async (req, res) => {
       urgency,
       reward,
       userId,
-      xpBoost: !!xpBoost, // ✅ Explicitly store xpBoost
+      xpBoost: !!xpBoost,
     })
 
     await newSpark.save()
@@ -68,7 +67,8 @@ router.post('/', async (req, res) => {
     res.status(500).json({ success: false, message: 'Server error' })
   }
 })
-// ✅ DELETE a Spark by ID
+
+// DELETE a Spark by ID
 router.delete('/:id', async (req, res) => {
   try {
     await Spark.findByIdAndDelete(req.params.id)
@@ -79,76 +79,48 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
-// POST reply to a Spark
-router.post('/:id/reply', async (req, res) => {
-    try {
-      const { userId, message, username } = req.body
-  
-      if (!userId || !message) {
-        return res.status(400).json({ success: false, message: 'Missing fields' })
-      }
-  
-      const updatedSpark = await Spark.findByIdAndUpdate(
-        req.params.id,
-        {
-          $push: {
-            replies: {
-              userId,
-              message,
-              username,
-              createdAt: new Date(),
-            },
+/**
+ * ✅ NEW: Apply to Help (Submit a private proposal)
+ * POST /api/sparks/:id/apply
+ */
+router.post('/:id/apply', async (req, res) => {
+  try {
+    const { userId, message, username } = req.body
+
+    if (!userId || !message) {
+      return res.status(400).json({ success: false, message: 'Missing fields' })
+    }
+
+    const updatedSpark = await Spark.findByIdAndUpdate(
+      req.params.id,
+      {
+        $push: {
+          applications: {
+            userId,
+            message,
+            username,
+            createdAt: new Date(),
           },
         },
-        { new: true }
-      )
-  
-      // ✅ Award XP to the replier
-      const updatedUser = await User.findByIdAndUpdate(
-        userId,
-        { $inc: { xp: 3 } },
-        { new: true }
-      )
-  
-      res.status(200).json({
-        success: true,
-        data: updatedSpark,
-        user: updatedUser,
-      })
-    } catch (err) {
-      console.error('Reply failed:', err)
-      res.status(500).json({ success: false, message: 'Server error' })
-    }
-  })
+      },
+      { new: true }
+    )
 
-  router.delete('/:id/reply/:replyIndex', async (req, res) => {
-    try {
-      const { userId } = req.body
-      const { id, replyIndex } = req.params
-      const index = parseInt(replyIndex)
-  
-      const spark = await Spark.findById(id)
-      if (!spark) {
-        return res.status(404).json({ success: false, message: 'Spark not found' })
-      }
-  
-      const reply = spark.replies[index]
-      if (!reply) {
-        return res.status(404).json({ success: false, message: `Reply at index ${index} not found` })
-      }
-  
-      if (reply.userId?.toString() !== userId) {
-        return res.status(403).json({ success: false, message: 'Unauthorized to delete this reply' })
-      }
-  
-      spark.replies.splice(index, 1)
-      await spark.save({ validateBeforeSave: false })
-  
-      res.status(200).json({ success: true, replies: spark.replies })
-    } catch (err) {
-      console.error('Error deleting reply:', err)
-      res.status(500).json({ success: false, message: 'Server error' })
-    }
-  })
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $inc: { xp: 3 } },
+      { new: true }
+    )
+
+    res.status(200).json({
+      success: true,
+      data: updatedSpark,
+      user: updatedUser,
+    })
+  } catch (err) {
+    console.error('Application failed:', err)
+    res.status(500).json({ success: false, message: 'Server error' })
+  }
+})
 
 module.exports = router

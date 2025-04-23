@@ -1,0 +1,29 @@
+.applicationForm {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.applicationForm textarea {
+  resize: none;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.applicationForm button {
+  background-color: var(--motion-blue);
+  color: white;
+  padding: 10px 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.applicationForm button:hover {
+  background-color: #003366;
+}

@@ -1,52 +1,50 @@
 import React from 'react'
 import styles from './SparkCard.module.css'
 import { BadgeDollarSign, AlarmClock, Trash2, Zap } from 'lucide-react'
-import ReplyForm from './ReplyForm'
+import ApplicationForm from './ApplicationForm'
 import useUserStore from '../../store/useUserStore'
 import axios from 'axios'
 
 const SparkCard = ({ spark, onDelete }) => {
   const { user } = useUserStore()
-  const [replies, setReplies] = React.useState(spark.replies || [])
+  const [applications, setApplications] = React.useState(spark.applications || [])
 
-  const handleDeleteReply = async (index) => {
+  const handleDeleteApplication = async (index) => {
     try {
-      const res = await axios.delete(`http://localhost:5000/api/sparks/${spark._id}/reply/${index}`, {
+      const res = await axios.delete(`http://localhost:5000/api/sparks/${spark._id}/application/${index}`, {
         data: { userId: user._id },
       })
       if (res.data.success) {
-        setReplies(res.data.replies)
+        setApplications(res.data.applications)
       }
     } catch (err) {
-      console.error('Delete reply error:', err)
+      console.error('Delete application error:', err)
     }
   }
 
   return (
-    <div className={`${styles.card} ${spark.xpBoost ? styles.boostedCard : ''}`}>
-      <div className={styles.header}>
-        <div className={styles.topRow}>
-          <h3 className={styles.title}>{spark.title}</h3>
-          {spark.xpBoost && (
-            <div className={styles.boostBadge}>
-              <Zap size={14} />
-              <span>Boosted</span>
-            </div>
-          )}
-        </div>
+    <div className={`${styles.card} ${spark.xpBoost ? styles.boosted : ''}`}>
+      <div className={styles.badgeBar}>
+        {spark.xpBoost && (
+          <span className={styles.boostTag}>
+            <Zap size={14} />
+            Boosted
+          </span>
+        )}
+        <span className={styles.tag}>{spark.tag || 'General'}</span>
+      </div>
 
+      <div className={styles.content}>
+        <h3 className={styles.title}>{spark.title}</h3>
         <p className={styles.description}>{spark.description}</p>
 
-        <div className={styles.metaRow}>
-          <span className={styles.tag}>{spark.tag || 'General'}</span>
-          <span className={styles.meta}>
-            <AlarmClock size={14} />
-            {spark.urgency}
+        <div className={styles.meta}>
+          <span>
+            <AlarmClock size={14} /> {spark.urgency}
           </span>
           {spark.reward > 0 && (
-            <span className={styles.reward}>
-              <BadgeDollarSign size={14} />
-              {spark.reward} Sparks
+            <span>
+              <BadgeDollarSign size={14} /> {spark.reward} Sparks
             </span>
           )}
         </div>
@@ -58,15 +56,15 @@ const SparkCard = ({ spark, onDelete }) => {
         </button>
       )}
 
-      {replies.length > 0 && (
-        <div className={styles.replies}>
-          <strong>Replies</strong>
+      {applications.length > 0 && user?.role === 'dropper' && (
+        <div className={styles.applications}>
+          <strong>Applications</strong>
           <ul>
-            {replies.map((r, i) => (
-              <li key={i} className={styles.reply}>
-                <span><strong>{r.username || 'Someone'}:</strong> {r.message}</span>
-                {r.userId === user?._id && (
-                  <button onClick={() => handleDeleteReply(i)} className={styles.deleteReply}>
+            {applications.map((a, i) => (
+              <li key={i}>
+                <span><strong>{a.username || 'Someone'}:</strong> {a.message}</span>
+                {a.userId === user?._id && (
+                  <button onClick={() => handleDeleteApplication(i)} className={styles.deleteReply}>
                     delete
                   </button>
                 )}
@@ -76,10 +74,13 @@ const SparkCard = ({ spark, onDelete }) => {
         </div>
       )}
 
-      <ReplyForm
-        sparkId={spark._id}
-        onReplySubmit={(updatedReplies) => setReplies(updatedReplies)}
-      />
+      {/* ✅ Only show ApplicationForm if responder */}
+      {user?.role === 'responder' && (
+        <ApplicationForm
+          sparkId={spark._id}
+          onApplicationSubmit={(updated) => setApplications(updated)}
+        />
+      )}
     </div>
   )
 }

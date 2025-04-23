@@ -3,7 +3,7 @@ import styles from './Footer.module.css'
 import { Link } from 'react-router-dom'
 import { Instagram, Facebook, Linkedin } from 'lucide-react'
 import { SiX } from 'react-icons/si'
-import logo from '../../assets/movira.svg' // ✅ Logo
+import logo from "/assets/movira.svg"
 
 const Footer = () => {
   return (

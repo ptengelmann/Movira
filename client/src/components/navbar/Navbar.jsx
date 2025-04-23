@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import styles from './Navbar.module.css'
 import useUserStore from '../../store/useUserStore'
-import logo from '../../assets/movira.svg'
+import logo from "/assets/movira.svg"
 
 const Navbar = () => {
   const { user, logout } = useUserStore()
@@ -34,7 +34,12 @@ const Navbar = () => {
               <Link to="/dashboard" className={isActive('/dashboard') ? styles.active : ''}>Dashboard</Link>
             </li>
             <li>
-              <Link to="/my-replies" className={isActive('/my-replies') ? styles.active : ''}>My Replies</Link>
+              <Link
+                to="/applications"
+                className={isActive('/applications') ? styles.active : ''}
+              >
+                {user.role === 'dropper' ? 'Applications' : 'My Applications'}
+              </Link>
             </li>
             <li>
               <Link to="/profile" className={isActive('/profile') ? styles.active : ''}>Profile</Link>

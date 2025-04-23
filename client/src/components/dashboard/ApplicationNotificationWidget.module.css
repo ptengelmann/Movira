@@ -1,0 +1,39 @@
+.notificationCard {
+  background: #f8faff;
+  border: 1px solid var(--motion-blue);
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin-top: 30px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+}
+
+.heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--motion-blue);
+  margin-bottom: 10px;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #333;
+}
+
+.item em {
+  font-style: italic;
+  color: var(--pulse-coral);
+}
+
+.message {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #666;
+  padding-left: 8px;
+}

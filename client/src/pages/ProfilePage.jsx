@@ -38,6 +38,17 @@ const ProfilePage = () => {
         <p>Your personal space in Movira</p>
       </div>
 
+      <div className={styles.avatarWrapper}>
+  <img
+    src={`/assets/default-avatar.png`}
+    alt="User Avatar"
+    className={styles.avatar}
+    onError={(e) => {
+      e.currentTarget.src = `/assets/default-avatar.png`
+    }}
+  />
+</div>
+
       <div className={styles.card}>
         <div className={styles.row}>
           <User size={20} className={styles.icon} />

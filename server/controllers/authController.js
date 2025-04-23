@@ -23,12 +23,22 @@ const signup = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' })
     }
 
+    const avatars = [
+      'https://i.pravatar.cc/150?img=10',
+      'https://i.pravatar.cc/150?img=12',
+      'https://i.pravatar.cc/150?img=15',
+      'https://i.pravatar.cc/150?img=17',
+      'https://i.pravatar.cc/150?img=20',
+    ]
+
     const newUser = new User({
       name,
       email,
-      password, // Will be hashed by pre-save hook
+      password,
+      role,
       xp: 0,
-      role, // ✅ Store role: dropper or responder
+      trustLevel: 'New',
+      avatar: avatars[Math.floor(Math.random() * avatars.length)],
     })
 
     await newUser.save()
@@ -42,7 +52,9 @@ const signup = async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         xp: newUser.xp,
-        role: newUser.role, // ✅ Include role in response
+        role: newUser.role,
+        avatar: newUser.avatar,
+        trustLevel: newUser.trustLevel,
         token,
       },
     })
@@ -76,7 +88,9 @@ const login = async (req, res) => {
         name: user.name,
         email: user.email,
         xp: user.xp,
-        role: user.role, // ✅ Return role on login
+        role: user.role,
+        avatar: user.avatar,
+        trustLevel: user.trustLevel,
         token,
       },
     })

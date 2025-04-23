@@ -1,46 +1,79 @@
 .form {
-    background-color: var(--glow-gray);
-    padding: 32px;
-    border-radius: 12px;
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .heading {
-    text-align: center;
-    margin-bottom: 20px;
-    color: var(--motion-blue);
-  }
-  
-  input, textarea, select {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-  }
-  
-  input:focus, textarea:focus, select:focus {
-    border-color: var(--pulse-coral);
-    outline: none;
-  }
-  
-  button {
-    margin-top: 12px;
-    background-color: var(--pulse-coral);
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  button:hover {
-    background-color: #e04c51;
-  }
-  
+  background: white;
+  padding: 36px;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.heading {
+  color: var(--motion-blue);
+  font-size: 28px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inlineGroup {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+input,
+textarea,
+select {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--pulse-coral);
+  outline: none;
+}
+
+button {
+  margin-top: 12px;
+  background-color: var(--pulse-coral);
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background-color: #e04c51;
+}
+
+.xpBoostBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--motion-blue);
+  color: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}

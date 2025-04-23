@@ -3,6 +3,7 @@ import axios from 'axios'
 import styles from './SparkForm.module.css'
 import useUserStore from '../../store/useUserStore'
 import { useNavigate } from 'react-router-dom'
+import { Sparkles, AlarmClock, BadgeDollarSign } from 'lucide-react'
 
 const SparkForm = () => {
   const { user, setUser } = useUserStore()
@@ -14,10 +15,15 @@ const SparkForm = () => {
     tag: '',
     urgency: '1hr',
     reward: '',
+    xpBoost: false,
   })
 
   const handleChange = (e) => {
-    setSpark({ ...spark, [e.target.name]: e.target.value })
+    const { name, value, type, checked } = e.target
+    setSpark((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }))
   }
 
   const handleSubmit = async (e) => {
@@ -30,8 +36,6 @@ const SparkForm = () => {
 
       if (res.data.success) {
         alert('Spark launched successfully!')
-
-        // ✅ Preserve all user info and only update XP
         const fullUser = {
           ...user,
           xp: res.data.user?.xp || user.xp,
@@ -44,9 +48,9 @@ const SparkForm = () => {
           tag: '',
           urgency: '1hr',
           reward: '',
+          xpBoost: false,
         })
 
-        // ✅ Redirect to dashboard
         navigate('/dashboard')
       }
     } catch (err) {
@@ -57,52 +61,77 @@ const SparkForm = () => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h2 className={styles.heading}>Drop a Spark</h2>
+      <h2 className={styles.heading}><Sparkles size={24} /> Drop a Spark</h2>
 
-      <label>Title</label>
-      <input
-        type="text"
-        name="title"
-        placeholder="What do you need help with?"
-        value={spark.title}
-        onChange={handleChange}
-        required
-      />
+      <div className={styles.group}>
+        <label>Title</label>
+        <input
+          name="title"
+          placeholder="What do you need help with?"
+          value={spark.title}
+          onChange={handleChange}
+          required
+        />
+      </div>
 
-      <label>Description</label>
-      <textarea
-        name="description"
-        placeholder="Describe what you're looking for"
-        rows="4"
-        value={spark.description}
-        onChange={handleChange}
-        required
-      />
+      <div className={styles.group}>
+        <label>Description</label>
+        <textarea
+          name="description"
+          placeholder="Describe what you're looking for"
+          value={spark.description}
+          onChange={handleChange}
+          rows={4}
+          required
+        />
+      </div>
 
-      <label>Tag</label>
-      <input
-        type="text"
-        name="tag"
-        placeholder="e.g. Design, Branding, Startup"
-        value={spark.tag}
-        onChange={handleChange}
-      />
+      <div className={styles.inlineGroup}>
+        <div className={styles.group}>
+          <label>Tag</label>
+          <input
+            name="tag"
+            placeholder="e.g. Design, Branding, Startup"
+            value={spark.tag}
+            onChange={handleChange}
+          />
+        </div>
 
-      <label>Urgency</label>
-      <select name="urgency" value={spark.urgency} onChange={handleChange}>
-        <option value="15min">15 minutes</option>
-        <option value="1hr">1 hour</option>
-        <option value="24hr">24 hours</option>
-      </select>
+        <div className={styles.group}>
+          <label><AlarmClock size={16} /> Urgency</label>
+          <select name="urgency" value={spark.urgency} onChange={handleChange}>
+            <option value="15min">15 minutes</option>
+            <option value="1hr">1 hour</option>
+            <option value="24hr">24 hours</option>
+          </select>
+        </div>
+      </div>
 
-      <label>Optional Reward</label>
-      <input
-        type="number"
-        name="reward"
-        placeholder="e.g. 10 (Spark Credits)"
-        value={spark.reward}
-        onChange={handleChange}
-      />
+      <div className={styles.inlineGroup}>
+        <div className={styles.group}>
+          <label><BadgeDollarSign size={16} /> Optional Reward</label>
+          <input
+            name="reward"
+            type="number"
+            placeholder="e.g. 10 (Spark Credits)"
+            value={spark.reward}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className={styles.group}>
+          <label>XP Boost</label>
+          <div className={styles.xpBoostBox}>
+            <input
+              type="checkbox"
+              name="xpBoost"
+              checked={spark.xpBoost}
+              onChange={handleChange}
+            />
+            <span>Activate XP Boost (+3 XP)</span>
+          </div>
+        </div>
+      </div>
 
       <button type="submit">Launch Spark</button>
     </form>

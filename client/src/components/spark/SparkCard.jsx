@@ -23,37 +23,34 @@ const SparkCard = ({ spark, onDelete }) => {
   }
 
   return (
-    <div className={`${styles.card} ${spark.xpBoost ? styles.boosted : ''}`}>
+    <div className={`${styles.card} ${spark.xpBoost ? styles.boostedCard : ''}`}>
       <div className={styles.header}>
-        <h3>{spark.title}</h3>
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+        <div className={styles.topRow}>
+          <h3 className={styles.title}>{spark.title}</h3>
           {spark.xpBoost && (
-            <span className={styles.boostBadge}><Zap size={14} /> Boosted</span>
+            <div className={styles.boostBadge}>
+              <Zap size={14} />
+              <span>Boosted</span>
+            </div>
           )}
+        </div>
+
+        <p className={styles.description}>{spark.description}</p>
+
+        <div className={styles.metaRow}>
           <span className={styles.tag}>{spark.tag || 'General'}</span>
+          <span className={styles.meta}>
+            <AlarmClock size={14} />
+            {spark.urgency}
+          </span>
+          {spark.reward > 0 && (
+            <span className={styles.reward}>
+              <BadgeDollarSign size={14} />
+              {spark.reward} Sparks
+            </span>
+          )}
         </div>
       </div>
-
-      <p className={styles.description}>{spark.description}</p>
-
-      <div className={styles.meta}>
-        <span className={styles.time}>
-          <AlarmClock size={14} style={{ marginRight: '6px' }} />
-          {spark.urgency || '1hr'}
-        </span>
-        {spark.reward > 0 && (
-          <span className={styles.reward}>
-            <BadgeDollarSign size={16} />
-            {spark.reward} Sparks
-          </span>
-        )}
-      </div>
-
-      {spark.xpBoost && (
-  <span className={styles.boosted}>
-    ⚡ Boosted
-  </span>
-)}
 
       {onDelete && (
         <button className={styles.deleteBtn} onClick={() => onDelete(spark._id)}>
@@ -61,37 +58,15 @@ const SparkCard = ({ spark, onDelete }) => {
         </button>
       )}
 
-      {/* Replies */}
       {replies.length > 0 && (
-        <div style={{ marginTop: '20px' }}>
-          <strong>Replies:</strong>
-          <ul style={{ marginTop: '8px' }}>
+        <div className={styles.replies}>
+          <strong>Replies</strong>
+          <ul>
             {replies.map((r, i) => (
-              <li
-                key={i}
-                style={{
-                  fontSize: '14px',
-                  marginBottom: '6px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <span>
-                  <strong>{r.username || 'Someone'}:</strong> {r.message}
-                </span>
+              <li key={i} className={styles.reply}>
+                <span><strong>{r.username || 'Someone'}:</strong> {r.message}</span>
                 {r.userId === user?._id && (
-                  <button
-                    onClick={() => handleDeleteReply(i)}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      color: 'red',
-                      fontSize: '12px',
-                      cursor: 'pointer',
-                      marginLeft: '12px',
-                    }}
-                  >
+                  <button onClick={() => handleDeleteReply(i)} className={styles.deleteReply}>
                     delete
                   </button>
                 )}

@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema(
         enum: ['New', 'Rising', 'Trusted', 'Verified'],
         default: 'New',
       },
+      avatar: {
+        type: String,
+        default: '', // We’ll assign a default at signup
+      },
   },
   { timestamps: true }
 )

@@ -76,19 +76,27 @@
   gap: 6px;
   cursor: pointer;
 }
-
-.applicationsBox {
-  margin-top: 12px;
-  background: #fafafa;
-  padding: 12px;
-  border-radius: 10px;
-  border: 1px solid #eee;
+.applicationsBox p {
+  color: #333; /* Message body */
+  margin: 0;
 }
-
+.applicationsBox {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 16px;
+}
 .appEntry {
   padding-bottom: 10px;
   border-bottom: 1px solid #e3e3e3;
   margin-bottom: 10px;
+  color: #222; /* ← Dark readable text */
+  font-size: 14px;
+}
+
+.appEntry strong {
+  color: #111;
+  font-weight: 600;
 }
 
 .timestamp {

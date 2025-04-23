@@ -16,7 +16,7 @@
 }
 
 .logo img {
-  height: 100px; /* or whatever size you want */
+  height: 120px; /* or whatever size you want */
   width: auto;
   display: block;
   max-width: 160px; /* Prevent it from growing too much */

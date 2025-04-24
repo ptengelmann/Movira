@@ -8,6 +8,7 @@ import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 import DashboardPage from '../pages/DashboardPage'
 import MyApplicationsPage from '../pages/MyApplicationsPage'
+import ManageSparksPage from '../pages/ManageSparksPage' // ✅ NEW
 import useUserStore from '../store/useUserStore'
 import ProfilePage from '../pages/ProfilePage'
 
@@ -18,28 +19,38 @@ const AppRouter = () => {
     <BrowserRouter>
       <Layout>
         <Routes>
+          {/* Public Routes */}
           <Route path="/" element={<HomePage />} />
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/profile" element={user ? <ProfilePage /> : <Navigate to="/login" />} />
-          
-          {/* Drop Spark only for Droppers */}
-          <Route
-            path="/spark"
-            element={user && user.role === 'dropper' ? <DropSparkPage /> : <Navigate to="/" />}
-          />
 
-          {/* Applications page for both roles */}
+          {/* Authenticated Routes */}
+          <Route
+            path="/dashboard"
+            element={user ? <DashboardPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile"
+            element={user ? <ProfilePage /> : <Navigate to="/login" />}
+          />
           <Route
             path="/applications"
             element={user ? <MyApplicationsPage /> : <Navigate to="/login" />}
           />
 
-          {/* Dashboard for all users */}
+          {/* Dropper-Only Routes */}
           <Route
-            path="/dashboard"
-            element={user ? <DashboardPage /> : <Navigate to="/login" />}
+            path="/spark"
+            element={
+              user && user.role === 'dropper' ? <DropSparkPage /> : <Navigate to="/" />
+            }
+          />
+          <Route
+            path="/manage-sparks"
+            element={
+              user && user.role === 'dropper' ? <ManageSparksPage /> : <Navigate to="/" />
+            }
           />
         </Routes>
       </Layout>

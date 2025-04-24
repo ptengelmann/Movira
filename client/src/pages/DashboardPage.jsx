@@ -123,6 +123,10 @@ const DashboardPage = () => {
               <p>
                 Head to <strong>Explore</strong> to apply to Sparks and earn XP.
               </p>
+
+              <Link to="/manage-sparks" className={styles.linkBtn}>
+  → Go to Manage Sparks
+</Link>
             </div>
           </div>
         )}

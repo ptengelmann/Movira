@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import styles from './DashboardPage.module.css'
-import { AlarmClock, BadgeDollarSign, Trash2, Zap } from 'lucide-react'
+import { AlarmClock, BadgeDollarSign, Trash2, Zap, Settings2 } from 'lucide-react'
 import useUserStore from '../store/useUserStore'
 
 const ManageSparksPage = () => {
@@ -36,8 +36,13 @@ const ManageSparksPage = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.card}>
-        <h1>⚙️ Manage Your Sparks</h1>
-        <p className={styles.description}>View, manage, and delete any Sparks you've dropped.</p>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Settings2 size={24} style={{ color: 'var(--motion-blue)' }} />
+          <h1 style={{ margin: 0 }}>Manage Your Sparks</h1>
+        </div>
+        <p className={styles.description}>
+          View, manage, and delete any Sparks you've dropped.
+        </p>
 
         {userSparks.length > 0 ? (
           <div className={styles.sparkGrid}>
